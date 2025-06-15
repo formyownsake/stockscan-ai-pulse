@@ -5,6 +5,7 @@ import AiInsights from "@/components/stock/AiInsights";
 import RecentNews from "@/components/stock/RecentNews";
 import Leadership from "@/components/stock/Leadership";
 import Header from "@/components/layout/Header";
+import TopInvestmentSectors from "@/components/stock/TopInvestmentSectors";
 
 const mockStockData = {
   AAPL: {
@@ -86,11 +87,12 @@ const StockDetails = () => {
       <Header ticker={stockData.ticker} name={stockData.name} price={stockData.price} />
       <main className="flex-1 overflow-y-auto">
         <Tabs defaultValue="fundamentals" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 h-auto">
+          <TabsList className="grid w-full grid-cols-3 h-auto">
             <TabsTrigger value="fundamentals">Fundamentals</TabsTrigger>
             <TabsTrigger value="ai">AI Insights</TabsTrigger>
             <TabsTrigger value="news">News</TabsTrigger>
             <TabsTrigger value="leadership">Leadership</TabsTrigger>
+            <TabsTrigger value="sectors">Sectors</TabsTrigger>
           </TabsList>
           <div className="p-4">
             <TabsContent value="fundamentals">
@@ -104,6 +106,9 @@ const StockDetails = () => {
             </TabsContent>
             <TabsContent value="leadership">
               <Leadership ticker={stockData.ticker} />
+            </TabsContent>
+            <TabsContent value="sectors">
+              <TopInvestmentSectors />
             </TabsContent>
           </div>
         </Tabs>
