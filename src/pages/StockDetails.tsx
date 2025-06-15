@@ -6,44 +6,19 @@ import RecentNews from "@/components/stock/RecentNews";
 import Leadership from "@/components/stock/Leadership";
 import Header from "@/components/layout/Header";
 import TopInvestmentSectors from "@/components/stock/TopInvestmentSectors";
-
-const mockStockData = {
-  AAPL: {
-    ticker: "AAPL",
-    name: "Apple Inc.",
-    price: "172.25",
-  },
-  GOOGL: {
-    ticker: "GOOGL",
-    name: "Alphabet Inc.",
-    price: "139.88",
-  },
-  TSLA: {
-    ticker: "TSLA",
-    name: "Tesla, Inc.",
-    price: "177.77",
-  },
-  MSFT: {
-    ticker: "MSFT",
-    name: "Microsoft Corporation",
-    price: "429.01",
-  }
-};
-
-const getSuggestions = (searchText: string) => {
-  const lowerSearchText = searchText.toLowerCase();
-  if (!lowerSearchText) return [];
-  return Object.values(mockStockData).filter(stock => 
-    stock.ticker.toLowerCase().includes(lowerSearchText) || 
-    stock.name.toLowerCase().includes(lowerSearchText)
-  );
-};
+import { getStockData, getSuggestions } from "@/lib/stock-data";
+import { useMyStocks } from "@/hooks/useMyStocks";
+import { Button } from "@/components/ui/button";
+import { PlusCircle, Trash2 } from "lucide-react";
 
 const StockDetails = () => {
   const { ticker } = useParams<{ ticker: string }>();
   const navigate = useNavigate();
-  const stockData = ticker ? mockStockData[ticker.toUpperCase() as keyof typeof mockStockData] : null;
+  const { addStock, removeStock, isStockSaved } = useMyStocks();
+
+  const stockData = ticker ? getStockData(ticker) : null;
   const suggestions = (!stockData && ticker) ? getSuggestions(ticker) : [];
+  const isSaved = ticker ? isStockSaved(ticker) : false;
 
   if (!stockData) {
     return (
@@ -85,9 +60,24 @@ const StockDetails = () => {
   return (
     <div className="flex flex-1 flex-col animate-fade-in">
       <Header ticker={stockData.ticker} name={stockData.name} price={stockData.price} />
+      
+      <div className="p-4 border-b">
+        {isSaved ? (
+          <Button variant="secondary" className="w-full" onClick={() => removeStock(stockData.ticker)}>
+            <Trash2 className="mr-2" />
+            Remove from My Stocks
+          </Button>
+        ) : (
+          <Button className="w-full" onClick={() => addStock(stockData.ticker)}>
+            <PlusCircle className="mr-2" />
+            Add to My Stocks
+          </Button>
+        )}
+      </div>
+
       <main className="flex-1 overflow-y-auto">
         <Tabs defaultValue="fundamentals" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 h-auto">
+          <TabsList className="grid w-full grid-cols-3 h-auto sticky top-0 bg-card z-10">
             <TabsTrigger value="fundamentals">Fundamentals</TabsTrigger>
             <TabsTrigger value="ai">AI Insights</TabsTrigger>
             <TabsTrigger value="news">News</TabsTrigger>

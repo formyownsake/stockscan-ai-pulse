@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search } from "lucide-react";
+import { Search, Bookmark } from "lucide-react";
 
 const Index = () => {
   const [ticker, setTicker] = useState("");
@@ -27,7 +27,7 @@ const Index = () => {
         <h1 className="text-4xl font-bold text-primary mb-2">StockScan</h1>
         <p className="text-muted-foreground mb-8">Quick, insightful stock analysis.</p>
       </div>
-      <div className="w-full max-w-sm">
+      <div className="w-full max-w-sm space-y-4">
         <div className="relative">
           <Input
             type="text"
@@ -46,6 +46,14 @@ const Index = () => {
             <Search className="h-5 w-5" />
           </Button>
         </div>
+        <Button 
+            variant="outline" 
+            className="w-full" 
+            onClick={() => navigate('/my-stocks')}
+        >
+            <Bookmark className="mr-2" />
+            My Stocks
+        </Button>
       </div>
     </div>
   );
