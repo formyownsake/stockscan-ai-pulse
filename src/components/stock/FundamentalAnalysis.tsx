@@ -1,5 +1,4 @@
-
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import {
   Accordion,
   AccordionContent,
@@ -109,6 +108,23 @@ const QuickDecisionSummary = () => (
                 ))}
             </div>
         </CardContent>
+        <CardFooter className="text-xs text-muted-foreground pt-4 border-t">
+            <div className="flex items-center gap-x-4 gap-y-2 flex-wrap">
+                <span className="font-semibold mr-2 shrink-0">Legend:</span>
+                <div className="flex items-center gap-1.5">
+                    {statusIcons.good}
+                    <span>Good</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                    {statusIcons.warning}
+                    <span>Warning</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                    {statusIcons.bad}
+                    <span>Bad</span>
+                </div>
+            </div>
+        </CardFooter>
     </Card>
 );
 
