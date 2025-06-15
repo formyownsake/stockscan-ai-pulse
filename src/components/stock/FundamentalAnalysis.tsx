@@ -73,19 +73,17 @@ const statusIcons: Record<MetricStatus, React.ReactNode> = {
 
 const MetricItem = ({ label, metric }: { label: string, metric: Metric }) => (
   <div className="flex justify-between border-b py-3 text-sm transition-colors hover:bg-accent/50 -mx-6 px-6">
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <div className="flex items-center gap-2 cursor-help">
-            <p className="text-muted-foreground">{label}</p>
-            <Info className="h-3.5 w-3.5 text-muted-foreground/70" />
-          </div>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p className="max-w-xs">{metric.explanation}</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <div className="flex items-center gap-2 cursor-help">
+          <p className="text-muted-foreground">{label}</p>
+          <Info className="h-3.5 w-3.5 text-muted-foreground/70" />
+        </div>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p className="max-w-xs">{metric.explanation}</p>
+      </TooltipContent>
+    </Tooltip>
     <p className="font-medium">{metric.value}</p>
   </div>
 );
@@ -130,9 +128,10 @@ const QuickDecisionSummary = () => (
 
 const FundamentalAnalysis = ({ ticker }: Props) => {
   return (
-    <div className="space-y-4">
-        <QuickDecisionSummary />
-        <Card>
+    <TooltipProvider>
+      <div className="space-y-4">
+          <QuickDecisionSummary />
+          <Card>
             <CardHeader>
                 <CardTitle>Core Metrics</CardTitle>
             </CardHeader>
@@ -143,11 +142,11 @@ const FundamentalAnalysis = ({ ticker }: Props) => {
                     ))}
                 </div>
             </CardContent>
-        </Card>
+          </Card>
 
-        <Accordion type="multiple" className="w-full space-y-4">
-            <Card>
-                <AccordionItem value="important-metrics" className="border-b-0">
+          <Accordion type="multiple" className="w-full space-y-4">
+              <Card>
+                  <AccordionItem value="important-metrics" className="border-b-0">
                     <AccordionTrigger className="p-6 text-base font-semibold hover:no-underline">
                         Important Metrics
                     </AccordionTrigger>
@@ -158,10 +157,10 @@ const FundamentalAnalysis = ({ ticker }: Props) => {
                             ))}
                         </div>
                     </AccordionContent>
-                </AccordionItem>
-            </Card>
-            <Card>
-                <AccordionItem value="detailed-metrics" className="border-b-0">
+                  </AccordionItem>
+              </Card>
+              <Card>
+                  <AccordionItem value="detailed-metrics" className="border-b-0">
                     <AccordionTrigger className="p-6 text-base font-semibold hover:no-underline">
                         Detailed Metrics
                     </AccordionTrigger>
@@ -172,10 +171,11 @@ const FundamentalAnalysis = ({ ticker }: Props) => {
                             ))}
                         </div>
                     </AccordionContent>
-                </AccordionItem>
-            </Card>
-        </Accordion>
-    </div>
+                  </AccordionItem>
+              </Card>
+          </Accordion>
+      </div>
+    </TooltipProvider>
   );
 };
 
