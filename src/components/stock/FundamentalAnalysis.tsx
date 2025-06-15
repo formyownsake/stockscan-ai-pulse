@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import {
   Accordion,
@@ -65,10 +66,10 @@ const summaryMetrics = [
 ];
 
 const statusIcons: Record<MetricStatus, React.ReactNode> = {
-  good: <CircleCheck className="text-green-500" />,
-  warning: <AlertTriangle className="text-amber-500" />,
-  bad: <CircleX className="text-red-500" />,
-  neutral: <Info className="text-muted-foreground" />,
+  good: <CircleCheck className="text-green-500" strokeWidth={1.5} />,
+  warning: <AlertTriangle className="text-amber-500" strokeWidth={1.5} />,
+  bad: <CircleX className="text-red-500" strokeWidth={1.5} />,
+  neutral: <Info className="text-muted-foreground" strokeWidth={1.5} />,
 };
 
 const MetricItem = ({ label, metric }: { label: string, metric: Metric }) => (
@@ -77,7 +78,7 @@ const MetricItem = ({ label, metric }: { label: string, metric: Metric }) => (
       <TooltipTrigger asChild>
         <div className="flex items-center gap-2 cursor-help">
           <p className="text-muted-foreground">{label}</p>
-          <Info className="h-3.5 w-3.5 text-muted-foreground/70" />
+          <Info className="h-3.5 w-3.5 text-muted-foreground/70" strokeWidth={1.5} />
         </div>
       </TooltipTrigger>
       <TooltipContent>
